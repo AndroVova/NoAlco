@@ -5,6 +5,7 @@ import nure.ua.noalco.entity.Profile;
 import nure.ua.noalco.exception.EntityNotFoundException;
 import nure.ua.noalco.repository.ProfileRepository;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -14,7 +15,7 @@ import java.util.Optional;
 public class ProfileServiceImpl implements ProfileService{
 
     private ProfileRepository profileRepository;
-    //private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public Profile getProfile(Long id) {
@@ -30,7 +31,7 @@ public class ProfileServiceImpl implements ProfileService{
 
     @Override
     public Profile saveProfile(Profile profile) {
-        /*profile.setPassword(bCryptPasswordEncoder.encode(profile.getPassword()));*/
+        profile.setPassword(bCryptPasswordEncoder.encode(profile.getPassword()));
         return profileRepository.save(profile);
     }
 
