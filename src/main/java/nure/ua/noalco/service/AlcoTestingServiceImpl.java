@@ -35,12 +35,12 @@ public class AlcoTestingServiceImpl implements AlcoTestingService{
     
     @Override
     public AlcoTesting saveAlcoTesting(AlcoTesting test, String sensorId, Long employeeId) {
-        Optional<Employee> employee = employeeRepository.findById(employeeId);
-        Employee unwrapedEmployee = EmployeeServiceImpl.unwrapEmployee(employee, employeeId);
         Optional<Sensor> sensor = sensorRepository.findById(sensorId);
-        Sensor unwrapedSensor = SensorServiceImpl.unwrapSensor(sensor, sensorId);
-        test.setEmployee(unwrapedEmployee);
-        test.setSensor(unwrapedSensor);
+        Sensor unwrappedSensor = SensorServiceImpl.unwrapSensor(sensor, sensorId);
+        Optional<Employee> employee = employeeRepository.findById(employeeId);
+        Employee unwrappedEmployee = EmployeeServiceImpl.unwrapEmployee(employee, employeeId);
+        test.setEmployee(unwrappedEmployee);
+        test.setSensor(unwrappedSensor);
         return alcoTestingRepository.save(test);
     }
 

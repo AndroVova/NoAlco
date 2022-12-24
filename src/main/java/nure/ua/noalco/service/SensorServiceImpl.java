@@ -39,6 +39,6 @@ public class SensorServiceImpl implements SensorService {
 
     public static Sensor unwrapSensor(Optional<Sensor> entity, String sensorId) {
         if (entity.isPresent()) return entity.get();
-        else throw new EntityNotFoundException(sensorId, AlcoTesting.class);
+        else throw new EntityNotFoundException(sensorId, Sensor.class);
     }
 }
