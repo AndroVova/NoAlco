@@ -1,5 +1,6 @@
 package nure.ua.noalco.web;
 
+import jakarta.persistence.EntityManager;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import nure.ua.noalco.entity.AlcoTesting;
@@ -16,6 +17,7 @@ import java.util.List;
 public class AlcoTestingController {
 
     AlcoTestingService alcoTestingService;
+    EntityManager entityManager;
 
     @GetMapping("/{id}")
     public ResponseEntity<AlcoTesting> getAlcoTesting(@PathVariable Long id) {
@@ -37,6 +39,18 @@ public class AlcoTestingController {
     @GetMapping("/all")
     public ResponseEntity<List<AlcoTesting>> getAlcoTestings() {
         return new ResponseEntity<>(alcoTestingService.getAlcoTestings(), HttpStatus.OK);
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity<Long> countAlcoTestingsWithValueGreaterThanMaxValue() {
+        Long count = alcoTestingService.countAlcoTestingsWithValueGreaterThanMaxValue(entityManager);
+        return new ResponseEntity<>(count, HttpStatus.OK);
+    }
+
+    @GetMapping("/getFalseTests")
+    public ResponseEntity<List<AlcoTesting>> findAlcoTestingsWithValueGreaterThanMaxValue() {
+        List<AlcoTesting> tests = alcoTestingService.findAlcoTestingsWithValueGreaterThanMaxValue(entityManager);
+        return new ResponseEntity<>(tests, HttpStatus.OK);
     }
 
     @GetMapping("/all/department/{id}")

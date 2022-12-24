@@ -1,6 +1,8 @@
 package nure.ua.noalco.service;
 
+import jakarta.persistence.EntityManager;
 import nure.ua.noalco.entity.AlcoTesting;
+import org.hibernate.Session;
 
 import java.util.List;
 
@@ -11,4 +13,7 @@ public interface AlcoTestingService {
     List<AlcoTesting> getAlcoTestings();
     List<AlcoTesting> getAlcoTestingsByDepartment(Long id);
     List<AlcoTesting> getAlcoTestingsByEmployee(Long id);
+
+    Long countAlcoTestingsWithValueGreaterThanMaxValue(EntityManager entityManager/*, String id*/);
+    List<AlcoTesting> findAlcoTestingsWithValueGreaterThanMaxValue(EntityManager entityManager);
 }

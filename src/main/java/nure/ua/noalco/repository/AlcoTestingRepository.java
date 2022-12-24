@@ -1,6 +1,7 @@
 package nure.ua.noalco.repository;
 
 import nure.ua.noalco.entity.AlcoTesting;
+import org.hibernate.Session;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

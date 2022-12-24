@@ -1,6 +1,10 @@
 package nure.ua.noalco.service;
 
+import ch.qos.logback.core.net.ObjectWriter;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import lombok.AllArgsConstructor;
+import nure.ua.noalco.SQLQuerry;
 import nure.ua.noalco.entity.AlcoTesting;
 import nure.ua.noalco.entity.Employee;
 import nure.ua.noalco.entity.Sensor;
@@ -8,6 +12,8 @@ import nure.ua.noalco.exception.EntityNotFoundException;
 import nure.ua.noalco.repository.AlcoTestingRepository;
 import nure.ua.noalco.repository.EmployeeRepository;
 import nure.ua.noalco.repository.SensorRepository;
+import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,7 +26,6 @@ public class AlcoTestingServiceImpl implements AlcoTestingService{
     
     AlcoTestingRepository alcoTestingRepository;
     EmployeeRepository employeeRepository;
-
     SensorRepository sensorRepository;
     @Override
     public AlcoTesting getAlcoTesting(Long id) {
@@ -62,6 +67,20 @@ public class AlcoTestingServiceImpl implements AlcoTestingService{
     @Override
     public List<AlcoTesting> getAlcoTestingsByEmployee(Long id) {
         return alcoTestingRepository.findAllByEmployeeId(id);
+    }
+
+    @Override
+    public Long countAlcoTestingsWithValueGreaterThanMaxValue(EntityManager entityManager) {
+        String hql = SQLQuerry.countFalseAlcoTestings;
+        TypedQuery<Long> query = entityManager.createQuery(hql, Long.class);
+        return query.getSingleResult();
+    }
+
+    @Override
+    public List<AlcoTesting> findAlcoTestingsWithValueGreaterThanMaxValue(EntityManager entityManager) {
+        String hql = SQLQuerry.getFalseAlcoTestings;
+        TypedQuery<AlcoTesting> query = entityManager.createQuery(hql, AlcoTesting.class);
+        return query.getResultList();
     }
 
     static AlcoTesting unwrapAlcoTesting(Optional<AlcoTesting> entity, Long id) {
