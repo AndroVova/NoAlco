@@ -34,7 +34,7 @@ public class AlcoTesting {
     @JoinColumn(name = "employee_id", referencedColumnName = "id")
     private Employee employee;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "alcoTesting", cascade = CascadeType.ALL)
-    private List<Sensor> sensor;
+    @ManyToOne
+    @JoinColumn(name = "sensor_id", referencedColumnName = "id")
+    private Sensor sensor;
 }

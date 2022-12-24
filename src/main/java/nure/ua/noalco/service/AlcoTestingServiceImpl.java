@@ -3,9 +3,11 @@ package nure.ua.noalco.service;
 import lombok.AllArgsConstructor;
 import nure.ua.noalco.entity.AlcoTesting;
 import nure.ua.noalco.entity.Employee;
+import nure.ua.noalco.entity.Sensor;
 import nure.ua.noalco.exception.EntityNotFoundException;
 import nure.ua.noalco.repository.AlcoTestingRepository;
 import nure.ua.noalco.repository.EmployeeRepository;
+import nure.ua.noalco.repository.SensorRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,6 +20,8 @@ public class AlcoTestingServiceImpl implements AlcoTestingService{
     
     AlcoTestingRepository alcoTestingRepository;
     EmployeeRepository employeeRepository;
+
+    SensorRepository sensorRepository;
     @Override
     public AlcoTesting getAlcoTesting(Long id) {
         Optional<AlcoTesting> alcoTesting = alcoTestingRepository.findById(id);
@@ -25,10 +29,13 @@ public class AlcoTestingServiceImpl implements AlcoTestingService{
     }
     
     @Override
-    public AlcoTesting saveAlcoTesting(AlcoTesting test, Long id) {
-        Optional<Employee> unwrapedEmployee = employeeRepository.findById(id);
-        Employee employee = EmployeeServiceImpl.unwrapEmployee(unwrapedEmployee, id);
-        test.setEmployee(employee);
+    public AlcoTesting saveAlcoTesting(AlcoTesting test, String sensorId, Long employeeId) {
+        Optional<Employee> employee = employeeRepository.findById(employeeId);
+        Employee unwrapedEmployee = EmployeeServiceImpl.unwrapEmployee(employee, employeeId);
+        Optional<Sensor> sensor = sensorRepository.findById(sensorId);
+        Sensor unwrapedSensor = SensorServiceImpl.unwrapSensor(sensor, sensorId);
+        test.setEmployee(unwrapedEmployee);
+        test.setSensor(unwrapedSensor);
         return alcoTestingRepository.save(test);
     }
 

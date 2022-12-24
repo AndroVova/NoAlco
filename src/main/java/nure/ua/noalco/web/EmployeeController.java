@@ -25,7 +25,7 @@ public class EmployeeController {
     @PostMapping
     public ResponseEntity<Employee> saveEmployee(@Valid @RequestBody Employee employee) {
         employeeService.saveEmployee(employee);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(employee, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")

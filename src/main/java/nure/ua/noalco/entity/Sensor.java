@@ -1,5 +1,6 @@
 package nure.ua.noalco.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -27,7 +28,7 @@ public class Sensor {
     @Column(nullable = false)
     private double maxValue;
 
-    @ManyToOne
-    @JoinColumn(name = "alco_testing_id", referencedColumnName = "id", nullable = true)
-    private AlcoTesting alcoTesting;
+    @JsonIgnore
+    @OneToMany(mappedBy = "sensor", cascade = CascadeType.ALL)
+    private List<AlcoTesting> alcoTesting;
 }

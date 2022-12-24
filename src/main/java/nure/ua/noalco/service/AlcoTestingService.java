@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface AlcoTestingService {
     AlcoTesting getAlcoTesting(Long id);
-    AlcoTesting saveAlcoTesting(AlcoTesting test, Long employeeId);
+    AlcoTesting saveAlcoTesting(AlcoTesting test, String sensor_id, Long employeeId);
     void deleteAlcoTesting(Long id);
     List<AlcoTesting> getAlcoTestings();
     List<AlcoTesting> getAlcoTestingsByDepartment(Long id);

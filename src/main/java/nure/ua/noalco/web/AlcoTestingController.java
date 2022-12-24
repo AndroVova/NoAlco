@@ -22,9 +22,9 @@ public class AlcoTestingController {
         return new ResponseEntity<>(alcoTestingService.getAlcoTesting(id), HttpStatus.OK);
     }
 
-    @PostMapping("/employee/{id}")
-    public ResponseEntity<AlcoTesting> saveAlcoTesting(@Valid @RequestBody AlcoTesting alcoTesting, @PathVariable Long id) {
-        alcoTestingService.saveAlcoTesting(alcoTesting, id);
+    @PostMapping("/sensor/{sensor_id}/employee/{employee_id}")
+    public ResponseEntity<AlcoTesting> saveAlcoTesting(@Valid @RequestBody AlcoTesting alcoTesting,@PathVariable String sensor_id ,@PathVariable Long employee_id) {
+        alcoTestingService.saveAlcoTesting(alcoTesting, sensor_id, employee_id);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -39,12 +39,12 @@ public class AlcoTestingController {
         return new ResponseEntity<>(alcoTestingService.getAlcoTestings(), HttpStatus.OK);
     }
 
-    @GetMapping("/department/{id}")
+    @GetMapping("/all/department/{id}")
     public ResponseEntity<List<AlcoTesting>> getAlcoTestingsByDepartment(@PathVariable Long id) {
         return new ResponseEntity<>(alcoTestingService.getAlcoTestingsByDepartment(id), HttpStatus.OK);
     }
 
-    @GetMapping("/employee/{id}")
+    @GetMapping("/all/employee/{id}")
     public ResponseEntity<List<AlcoTesting>> getAlcoTestingsByEmployee(@PathVariable Long id) {
         return new ResponseEntity<>(alcoTestingService.getAlcoTestingsByEmployee(id), HttpStatus.OK);
     }

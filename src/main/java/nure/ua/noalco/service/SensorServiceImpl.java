@@ -1,31 +1,44 @@
 package nure.ua.noalco.service;
 
 import lombok.AllArgsConstructor;
+import nure.ua.noalco.entity.AlcoTesting;
 import nure.ua.noalco.entity.Sensor;
+import nure.ua.noalco.exception.EntityNotFoundException;
+import nure.ua.noalco.repository.SensorRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class SensorServiceImpl implements SensorService{
+public class SensorServiceImpl implements SensorService {
+
+    SensorRepository sensorRepository;
+
     @Override
     public Sensor getSensor(String id) {
-        return null;
+        Optional<Sensor> sensor = sensorRepository.findById(id);
+        return unwrapSensor(sensor, id);
     }
 
     @Override
-    public Sensor saveSensor(Sensor user) {
-        return null;
+    public Sensor saveSensor(Sensor sensor) {
+        return sensorRepository.save(sensor);
     }
 
     @Override
     public void deleteSensor(String id) {
-
+        sensorRepository.deleteById(id);
     }
 
     @Override
     public List<Sensor> getSensors() {
-        return null;
+        return (List<Sensor>) sensorRepository.findAll();
+    }
+
+    public static Sensor unwrapSensor(Optional<Sensor> entity, String sensorId) {
+        if (entity.isPresent()) return entity.get();
+        else throw new EntityNotFoundException(sensorId, AlcoTesting.class);
     }
 }

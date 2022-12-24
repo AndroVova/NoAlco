@@ -18,6 +18,8 @@ public class DepartmentServiceImpl implements DepartmentService{
 
     private DepartmentRepository departmentRepository;
 
+    private EmployeeRepository employeeRepository;
+
     @Override
     public Department getDepartment(Long id) {
         Optional<Department> department = departmentRepository.findById(id);
@@ -41,9 +43,8 @@ public class DepartmentServiceImpl implements DepartmentService{
     }
 
     @Override
-    public Set<Employee> getEmployeesInDepartment(Long id) {
-        Department course = getDepartment(id);
-        return course.getEmployees();
+    public List<Employee> getEmployeesInDepartment(Long id) {
+        return employeeRepository.findAllByDepartmentId(id);
     }
 
     static Department unwrapDepartment(Optional<Department> entity, Long id) {

@@ -20,7 +20,6 @@ public class DepartmentController {
 
     DepartmentService departmentService;
 
-
     @GetMapping("/{id}")
     public ResponseEntity<Department> getDepartment(@PathVariable Long id) {
         return new ResponseEntity<>(departmentService.getDepartment(id), HttpStatus.OK);
@@ -54,7 +53,7 @@ public class DepartmentController {
 
 
     @GetMapping("/{id}/employees")
-    public ResponseEntity<Set<Employee>> getEnrolledEmployees(@PathVariable Long id) {
+    public ResponseEntity<List<Employee>> getEnrolledEmployees(@PathVariable Long id) {
         return new ResponseEntity<>(departmentService.getEmployeesInDepartment(id), HttpStatus.OK);
     }
 

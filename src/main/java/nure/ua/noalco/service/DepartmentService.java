@@ -11,5 +11,5 @@ public interface DepartmentService {
     Department saveDepartment(Department course);
     void deleteDepartment(Long id);
     List<Department> getDepartments();
-    Set<Employee> getEmployeesInDepartment(Long id);
+    List<Employee> getEmployeesInDepartment(Long id);
 }
