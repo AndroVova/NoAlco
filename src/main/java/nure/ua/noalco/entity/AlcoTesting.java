@@ -1,11 +1,13 @@
 package nure.ua.noalco.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -31,4 +33,8 @@ public class AlcoTesting {
     @ManyToOne(optional = false)
     @JoinColumn(name = "employee_id", referencedColumnName = "id")
     private Employee employee;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "alcoTesting", cascade = CascadeType.ALL)
+    private List<Sensor> sensor;
 }

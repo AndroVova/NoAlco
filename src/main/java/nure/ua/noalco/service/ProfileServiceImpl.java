@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import nure.ua.noalco.entity.Profile;
 import nure.ua.noalco.exception.EntityNotFoundException;
 import nure.ua.noalco.repository.ProfileRepository;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +26,12 @@ public class ProfileServiceImpl implements ProfileService{
     public Profile getProfile(String username) {
         Optional<Profile> user = profileRepository.findByEmail(username);
         return unwrapProfile(user, 404L);
+    }
+
+    //TODO:update profile
+    @Override
+    public Profile updateProfile(Long id) {
+        return null;
     }
 
     @Override

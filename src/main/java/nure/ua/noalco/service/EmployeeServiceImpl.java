@@ -26,9 +26,6 @@ public class EmployeeServiceImpl implements EmployeeService{
 
     @Override
     public Employee saveEmployee(Employee student) {
-        /*Optional<Department> department = departmentRepository.findById(0L);
-        Department unwraped = DepartmentServiceImpl.unwrapDepartment(department,0L);
-        student.setDepartment(unwraped);*/
         return employeeRepository.save(student);
     }
 
