@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import java.util.List;
 
 @AllArgsConstructor
@@ -25,8 +26,9 @@ public class AlcoTestingController {
     }
 
     @PostMapping("/sensor/{sensor_id}/employee/{employee_id}")
-    public ResponseEntity<AlcoTesting> saveAlcoTesting(@Valid @RequestBody AlcoTesting alcoTesting,@PathVariable String sensor_id ,@PathVariable Long employee_id) {
+    public ResponseEntity<AlcoTesting> saveAlcoTesting(@Valid @RequestBody AlcoTesting alcoTesting,@PathVariable String sensor_id ,@PathVariable Long employee_id) throws MessagingException {
         alcoTestingService.saveAlcoTesting(alcoTesting, sensor_id, employee_id);
+
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

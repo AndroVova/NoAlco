@@ -1,7 +1,6 @@
 package nure.ua.noalco.service;
 
 import lombok.AllArgsConstructor;
-import nure.ua.noalco.entity.AlcoTesting;
 import nure.ua.noalco.entity.Sensor;
 import nure.ua.noalco.exception.EntityNotFoundException;
 import nure.ua.noalco.repository.SensorRepository;

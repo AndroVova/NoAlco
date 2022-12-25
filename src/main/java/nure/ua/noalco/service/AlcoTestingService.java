@@ -2,13 +2,13 @@ package nure.ua.noalco.service;
 
 import jakarta.persistence.EntityManager;
 import nure.ua.noalco.entity.AlcoTesting;
-import org.hibernate.Session;
 
+import javax.mail.MessagingException;
 import java.util.List;
 
 public interface AlcoTestingService {
     AlcoTesting getAlcoTesting(Long id);
-    AlcoTesting saveAlcoTesting(AlcoTesting test, String sensor_id, Long employeeId);
+    AlcoTesting saveAlcoTesting(AlcoTesting test, String sensor_id, Long employeeId) throws MessagingException;
     void deleteAlcoTesting(Long id);
     List<AlcoTesting> getAlcoTestings();
     List<AlcoTesting> getAlcoTestingsByDepartment(Long id);

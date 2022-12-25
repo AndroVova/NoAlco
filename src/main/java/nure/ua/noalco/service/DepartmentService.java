@@ -4,7 +4,6 @@ import nure.ua.noalco.entity.Department;
 import nure.ua.noalco.entity.Employee;
 
 import java.util.List;
-import java.util.Set;
 
 public interface DepartmentService {
     Department getDepartment(Long id);

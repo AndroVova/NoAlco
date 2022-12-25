@@ -5,13 +5,11 @@ import lombok.AllArgsConstructor;
 import nure.ua.noalco.entity.Department;
 import nure.ua.noalco.entity.Employee;
 import nure.ua.noalco.service.DepartmentService;
-import nure.ua.noalco.service.EmployeeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 
 @AllArgsConstructor
 @RestController
@@ -40,17 +38,6 @@ public class DepartmentController {
     public ResponseEntity<List<Department>> getDepartments() {
         return new ResponseEntity<>(departmentService.getDepartments(), HttpStatus.OK);
     }
-
-    /*@PutMapping("/{departmentId}/employee/{employeeId}")
-    public ResponseEntity<Department> enrollStudentToCourse(@PathVariable Long departmentId, @PathVariable Long employeeId) {
-        return new ResponseEntity<>(departmentService.addEmployeeToDepartment(employeeId, departmentId), HttpStatus.OK);
-    }*/
-
-    /*@PostMapping("/{departmentId}/employee")
-    public ResponseEntity<Department> enrollEmployeeToDepartment(@PathVariable Long departmentId) {
-        return new ResponseEntity<>( ,HttpStatus.OK);
-    }*/
-
 
     @GetMapping("/{id}/employees")
     public ResponseEntity<List<Employee>> getEnrolledEmployees(@PathVariable Long id) {

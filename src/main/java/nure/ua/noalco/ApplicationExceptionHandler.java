@@ -1,5 +1,6 @@
 package nure.ua.noalco;
 
+import nure.ua.noalco.exception.AlcoTestingFailureException;
 import nure.ua.noalco.exception.EntityNotFoundException;
 import nure.ua.noalco.exception.ErrorResponse;
 
@@ -22,7 +23,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(EntityNotFoundException.class)
+    @ExceptionHandler({EntityNotFoundException.class, AlcoTestingFailureException.class})
     public ResponseEntity<Object> handleResourceNotFoundException(RuntimeException ex) {
         ErrorResponse error = new ErrorResponse(Arrays.asList(ex.getMessage()));
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);

@@ -1,24 +1,22 @@
 package nure.ua.noalco.service;
 
-import ch.qos.logback.core.net.ObjectWriter;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import lombok.AllArgsConstructor;
 import nure.ua.noalco.SQLQuerry;
+import nure.ua.noalco.emailUtil.EmailUtil;
 import nure.ua.noalco.entity.AlcoTesting;
 import nure.ua.noalco.entity.Employee;
 import nure.ua.noalco.entity.Sensor;
+import nure.ua.noalco.exception.AlcoTestingFailureException;
 import nure.ua.noalco.exception.EntityNotFoundException;
 import nure.ua.noalco.repository.AlcoTestingRepository;
 import nure.ua.noalco.repository.EmployeeRepository;
 import nure.ua.noalco.repository.SensorRepository;
-import org.hibernate.Session;
-import org.hibernate.query.Query;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import javax.mail.*;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -34,15 +32,23 @@ public class AlcoTestingServiceImpl implements AlcoTestingService{
     }
     
     @Override
-    public AlcoTesting saveAlcoTesting(AlcoTesting test, String sensorId, Long employeeId) {
+    public AlcoTesting saveAlcoTesting(AlcoTesting test, String sensorId, Long employeeId) throws MessagingException {
         Optional<Sensor> sensor = sensorRepository.findById(sensorId);
         Sensor unwrappedSensor = SensorServiceImpl.unwrapSensor(sensor, sensorId);
         Optional<Employee> employee = employeeRepository.findById(employeeId);
         Employee unwrappedEmployee = EmployeeServiceImpl.unwrapEmployee(employee, employeeId);
         test.setEmployee(unwrappedEmployee);
         test.setSensor(unwrappedSensor);
+        try {
+            if (test.getValue() > unwrappedSensor.getMaxValue()) {
+                throw new AlcoTestingFailureException(employeeId, unwrappedEmployee);
+            }
+        } catch (AlcoTestingFailureException e) {
+            EmailUtil.sendMessage(test);
+        }
         return alcoTestingRepository.save(test);
     }
+
 
     @Override
     public void deleteAlcoTesting(Long id) {

@@ -1,6 +1,5 @@
 package nure.ua.noalco.repository;
 
-import nure.ua.noalco.entity.Profile;
 import nure.ua.noalco.entity.Sensor;
 import org.springframework.data.repository.CrudRepository;
 
